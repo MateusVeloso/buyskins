@@ -1,0 +1,32 @@
+{
+  "name": "buyskins",
+  "version": "1.0.0",
+  "description": "Sistema de compras e vendas de skins CS:GO",
+  "main": "app-router.js",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "passport-openid": "^0.4.0",
+    "steam-web": "^0.6.0",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateusVeloso/buyskins.git"
+  },
+  "keywords": [
+    "csgo"
+  ],
+  "author": "Mateus Veloso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MateusVeloso/buyskins/issues"
+  },
+  "homepage": "https://github.com/MateusVeloso/buyskins#readme"
+}
