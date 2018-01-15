@@ -5,7 +5,8 @@ var express = require('express')
   , passport = require('passport')
   , util = require('util')
   , session = require('express-session')
-  , SteamStrategy = require('./strategy.js');
+  , SteamStrategy = require('./strategy.js') 
+  , path = require('path');
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -50,6 +51,7 @@ var app = express();
 // configure Express
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
     secret: 'your secret',

@@ -1,9 +1,117 @@
-<% if (!user) { %>
-	<h2>Welcome! Please log in.</h2>
-	<p><a href="auth/steam">Sign On with Steam</a></p>
-<% } else { %>
-	<h2>Hello, <%= user.displayName %>. - <a href='logout'>Logout</a></h2>
-<% } %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--CSS-->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css" >
+        <link href="css/estilo.css" rel="stylesheet" type="text/css"/>
+        <link href="css/profile.css" rel="stylesheet" type="text/css"/>
+        <!--JS-->
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="js/script.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <header>
+            <% if (!user) { %>
+            <a href="auth/steam" class="steambutton">
+                <span>Entrar com Steam</span>
+                <div class="icon">
+                    <i class="fa fa-steam-square"></i>
+                </div>
+            </a>
+            <!--<h2>Welcome! Please log in.</h2>-->
+            <!--<p><a href="auth/steam">Sign On with Steam</a></p>-->
+            <% } else { %>
+            <a class="profile" href="#">
+                <span>BC : 0,00</span>
+                <img src='<%= user.photos[2].value %>' alt='Avatar' class="usu-avatar"/>
+            </a>
+            <div class="container" id="profile-background">
+                <div class="seta"></div>
+                <div class="row">
+                    <div class="col-md-12 profile-body">
+                        <div class="row">
+                            <img src="http://oi64.tinypic.com/10pdrvo.jpg" class="selected-medal">
+                            <div class="col-xs-2 profile-avatar"><img src="<%= user.photos[2].value %>" class="avatar-image"></div>
+                            <div class="col-xs-8 profile-name"><%= user.displayName %></div>
 
-<!-- Should redirect to homepage if you're not logged in -->
-<p><a href="account">See Account Information</a></p>
+                            <div class="col-xs-2 commendations">
+                                <div class="friendly"><img src="http://oi68.tinypic.com/259wiv4.jpg"><span>0</span></div>
+                                <div class="teacher"><img src="http://oi68.tinypic.com/2iwa9hg.jpg"><span>0</span></div>
+                                <div class="leader"><img src="http://oi66.tinypic.com/k0mrgw.jpg"><span>0</span></div>
+                            </div>
+
+                            <div class="col-xs-8 medals">
+                                <img src="http://oi64.tinypic.com/10pdrvo.jpg">
+                                <img src="http://oi65.tinypic.com/sfeykl.jpg">
+                                <img src="http://oi68.tinypic.com/23ktdi1.jpg">
+                                <img src="http://oi65.tinypic.com/2i70mdl.jpg">
+                                <img src="http://oi64.tinypic.com/1zcfmn5.jpg">
+                                <img src="http://oi63.tinypic.com/254x36h.jpg">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-2"><img src="http://oi63.tinypic.com/2ufehvn.jpg" class="rank-image"></div>
+
+                            <div class="col-xs-6 current-rank"><b>Master Sergeant</b> Rank 16</div>
+                            <div class="col-xs-4 next-rank">Rank 17 + Drop</div>
+                            <div class="col-xs-12 xp-progress-bar">
+                                <div class="xp-earned"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 profile-footer">
+                        <div class="col-xs-2"><img src="http://oi65.tinypic.com/xlf57p.jpg" class="skill-group-image"></div>
+
+                        <div class="col-xs-8 skill-group-name">Global Elite</div>
+                        <div class="col-xs-1 matches-won"><img src="http://oi65.tinypic.com/i44dgk.jpg" alt="Quantidade de vendas"><span>1337</span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 profile-footer">
+                        <a href="logout" class="steambutton steambutton-sair">
+                            <span>Sair</span>
+                            <div class="icon">
+                                <i class="fa fa-steam-square"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--<h2>Hello, <%= user.displayName %>. - <a href='logout'>Logout</a></h2>-->
+            <% } %>
+
+            <!-- Should redirect to homepage if you're not logged in -->
+            <!--<p><a href="account">See Account Information</a></p>-->
+        </header>
+
+        <section class="promocoes">
+        </section>
+        <section class="section-itens-40">
+            <h1>40-50% de desconto</h1>
+            <div class="box-item col-md-3">
+                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
+            </div>
+            <div class="box-item col-md-3">
+                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
+            </div>
+            <div class="box-item col-md-3">
+                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
+            </div>
+            <div class="box-item col-md-3">
+                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
+            </div>
+            <div class="box-item col-md-3">
+                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
+            </div>
+        </section>
+        <footer></footer>
+    </body>
+</html>
