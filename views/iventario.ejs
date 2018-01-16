@@ -12,6 +12,22 @@
         <!--JS-->
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="js/script.js" type="text/javascript"></script>
+
+        <script>
+            $(function () {
+                var json = '<%- JSON.stringify(iventario) %>';
+                $.each(JSON.parse(json), function (e, o) {
+                    if (o.tradable === 1) {
+                        console.log('a');
+                        var div = $('<div class="box-item-iventario">');
+                        var img = $('<img src="http://community.edgecast.steamstatic.com/economy/image/' + o.icon_url + '">');
+                        div.append(img);
+                        console.log($('.iventario-usuario'));
+                        $('.iventario-usuario').append(div);
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <header>
@@ -82,12 +98,6 @@
                                 <i class="fa fa-steam-square"></i>
                             </div>
                         </a>
-                        <a href="iventario" class="steambutton steambutton-iventario">
-                            <span>Iventário</span>
-                            <div class="icon">
-                                <i class="fa fa-suitcase"></i>
-                            </div>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -97,25 +107,11 @@
             <!-- Should redirect to homepage if you're not logged in -->
             <!--<p><a href="account">See Account Information</a></p>-->
         </header>
-
-        <section class="promocoes">
-        </section>
-        <section class="section-itens-40">
-            <h1>40-50% de desconto</h1>
-            <div class="box-item col-md-3">
-                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
-            </div>
-            <div class="box-item col-md-3">
-                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
-            </div>
-            <div class="box-item col-md-3">
-                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
-            </div>
-            <div class="box-item col-md-3">
-                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
-            </div>
-            <div class="box-item col-md-3">
-                <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV08y5nY6fqPP9ILrDhGpI18h0juDU-LP5iUazrl04YW-lLNSTIVU7ZV3U-FK6ku_tgp_vu53NySZhvSJ35XvUlxS1iB5FcKUx0hzV6cx4/330x192">
+        <section class="section-iventario">
+            <div class="iventario-usuario">
+                <div class="box-item-iventario">
+                    <img src="http://community.edgecast.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXU5A1PIYQNqhpOSV-fRPasw8rsUFJ5KBFZv668FFY1naTMdzwTtNrukteIkqT2MO_Uwz5Q6cYhibyXo4rw2ALsrkRoYjuncNCLMlhpEV4XDTk">
+                </div>
             </div>
         </section>
         <footer></footer>

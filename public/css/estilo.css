@@ -38,6 +38,7 @@ header{
     border-radius: 5px;
 }
 
+
 .box-item{
     height: 300px;
     border-radius: 5px;
@@ -55,6 +56,48 @@ header{
     width: 90%;
     margin-left: 5%;
     border-bottom: 1px solid #ccc;
+}
+
+
+.section-iventario{
+    margin-top: 2.5%;
+    float: left;
+    width: calc(95% - 20px);
+    margin-left: 2.5%;
+    background: #fff;
+    padding: 10px;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    height: 400px;
+}
+.iventario-usuario{
+    padding-top: 5px;
+    padding-left: 5px;
+    width: 100%;
+    float: left;
+    height: 160px;
+    overflow-x: auto;
+    white-space: nowrap; 
+}
+
+.box-item-iventario{
+    cursor: pointer;
+    width: 140px;
+    height: 130px;
+    display: inline-block;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.5);
+    margin-right: 10px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.box-item-iventario:hover{
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.5),inset 0 0 4px 4px rgba(0,0,0,0.2);
+}
+
+.box-item-iventario > img {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 5px;
 }
 
 footer{
@@ -167,6 +210,11 @@ footer{
     width: 170px;
 }
 
+.steambutton-iventario{
+    width: 170px;
+    margin-right: 245px;
+}
+
 .profile{
     position: absolute;
     padding: 10px;
@@ -178,7 +226,7 @@ footer{
 }
 
 .profile:hover{
-    
+
 }
 
 .profile > span{
