@@ -7,7 +7,26 @@ var express = require('express')
         , session = require('express-session')
         , SteamStrategy = require('./strategy.js')
         , iven = require("steam-inventory")
+        , MongoClient = require('mongodb').MongoClient
         , path = require('path');
+
+const url_db = 'mongodb://localhost:27017/buyskins_db';
+
+//Create database and Collection
+MongoClient.connect(url_db, function (err, db) {
+    if (err) {
+        throw err;
+    }
+    console.log('Database OK!')
+    var dbo = db.db("buyskins_db");
+    dbo.createCollection("usuarios", function (err, res) {
+        if (err) {
+            throw err;
+        }
+        console.log("Collection usuarios OK!");
+        db.close();
+    });
+});
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -36,7 +55,6 @@ passport.use(new SteamStrategy({
         function (identifier, profile, done) {
             // asynchronous verification, for effect...
             process.nextTick(function () {
-
                 // To keep the example simple, the user's Steam profile is returned to
                 // represent the logged-in user.  In a typical application, you would want
                 // to associate the Steam account with a user record in your database,
@@ -78,7 +96,7 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
-app.get('/iventario', ensureAuthenticated,function (req, res){
+app.get('/iventario', ensureAuthenticated, function (req, res) {
     if (req.user) {
         iven(req.user.id, 730, 2, (items, error) => {
             if (error) {
@@ -130,3 +148,49 @@ function ensureAuthenticated(req, res, next) {
 //const market = require('steam-market-pricing');
 //market.getItemPrice(730, 'AK-47 | Point Disarray (Field-Tested)',[currency = 7]).then(item => console.log(item));
 
+
+function insertUsuario() {
+    MongoClient.connect(url_db, function (err, db) {
+        if (err) {
+            throw err;
+        }
+        var dbo = db.db("buyskins_db");
+        var myobj = {idsteam: "2", nome: "Mateus de Paula"};
+        dbo.collection("usuarios").insertOne(myobj, function (err, res) {
+            if (err) {
+                throw err;
+            }
+            console.log('usuario insert ok!');
+            db.close();
+        });
+    });
+}
+
+function selectUsuario() {
+    MongoClient.connect(url_db, function (err, db) {
+        if (err) {
+            throw err;
+        }
+        var dbo = db.db("buyskins_db");
+        dbo.collection("usuarios").find().toArray(function (err, result) {
+            if (err)
+                throw err;
+            console.log(result);
+            db.close();
+        });
+    });
+}
+
+//insertUsuario();
+//selectUsuario();
+
+//DELETE COLLECTION ( PERIGO ) 
+//MongoClient.connect(url_db, function(err, db) {
+//  if (err) throw err;
+//  var dbo = db.db("buyskins_db");
+//  dbo.collection("usuarios").drop(function(err, delOK) {
+//    if (err) throw err;
+//    if (delOK) console.log("Collection deleted");
+//    db.close();
+//  });
+//});
