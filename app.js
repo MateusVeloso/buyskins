@@ -8,25 +8,11 @@ var express = require('express')
         , SteamStrategy = require('./strategy.js')
         , iven = require("steam-inventory")
         , MongoClient = require('mongodb').MongoClient
+        , url = require('url')
         , path = require('path');
 
-const url_db = 'mongodb://localhost:27017/buyskins_db';
 
-//Create database and Collection
-MongoClient.connect(url_db, function (err, db) {
-    if (err) {
-        throw err;
-    }
-    console.log('Database OK!')
-    var dbo = db.db("buyskins_db");
-    dbo.createCollection("usuarios", function (err, res) {
-        if (err) {
-            throw err;
-        }
-        console.log("Collection usuarios OK!");
-        db.close();
-    });
-});
+var uri = "mongodb://vttcue:OubMzOoRIDjdf7fV@buyskins-shard-00-00-zvlo4.mongodb.net:27017/buyskins_db?ssl=true&authSource=admin";
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -84,7 +70,32 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/../../public'));
 
 app.get('/', function (req, res) {
-    res.render('index', {user: req.user});
+    if (req.user) {
+        MongoClient.connect(uri, function (err, db) {
+            try {
+                var usuario = {id_steam: req.user.id};
+                var collection = db.db("buyskins_db").collection("usuarios");
+                collection.findOne(usuario, function (err, result) {
+                    if (err) {
+                        throw err;
+                    }
+                    if (result) {
+                        usuario = Object.assign({}, req.user, result);
+                        if (!usuario) {
+                            usuario = req.user;
+                        }
+                        res.render('index', {user: usuario});
+                    }
+                });
+            } catch (exception) {
+                console.log(exception);
+            } finally {
+                db.close();
+            }
+        });
+    }else{
+        res.render('index', {user: null});
+    }
 });
 
 app.get('/account', ensureAuthenticated, function (req, res) {
@@ -94,6 +105,24 @@ app.get('/account', ensureAuthenticated, function (req, res) {
 app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
+});
+
+app.get('/accounts', function (req, res) {
+    MongoClient.connect(uri, function (err, db) {
+        try {
+            var collection = db.db("buyskins_db").collection("usuarios");
+            collection.find().toArray(function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                res.render('accounts', {accounts: result});
+            });
+        } catch (exception) {
+            console.log(exception);
+        } finally {
+            db.close();
+        }
+    });
 });
 
 app.get('/iventario', ensureAuthenticated, function (req, res) {
@@ -126,9 +155,7 @@ app.get('/auth/steam',
 app.get('/auth/steam/return',
         passport.authenticate('steam', {failureRedirect: '/'}),
         function (req, res) {
-            console.log('caiu aqui 2s');
-
-            res.redirect('/');
+            checkInsertUsuario(req.user.id, res);
         });
 
 app.listen(3000);
@@ -144,53 +171,75 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/');
 }
-
 //const market = require('steam-market-pricing');
 //market.getItemPrice(730, 'AK-47 | Point Disarray (Field-Tested)',[currency = 7]).then(item => console.log(item));
 
 
-function insertUsuario() {
-    MongoClient.connect(url_db, function (err, db) {
+function insertUsuario(id, response) {
+    MongoClient.connect(uri, function (err, db) {
         if (err) {
             throw err;
         }
         var dbo = db.db("buyskins_db");
-        var myobj = {idsteam: "2", nome: "Mateus de Paula"};
-        dbo.collection("usuarios").insertOne(myobj, function (err, res) {
+        var usuario = {id_steam: id, reais: "0,00", buy_coins: "0,00", rank: 0, qtd_vendas: 0, medalhas: {}};
+        dbo.collection("usuarios").insertOne(usuario, function (err, res) {
+            if (err) {
+                console.error(err);
+            }
+            console.log('Usuário cadastrado com sucesso : ' + usuario.id_steam);
+            response.redirect('/');
+//            Object.assign(first, last)
+            db.close();
+        });
+
+    });
+}
+
+function deleteUsuarios() {
+    MongoClient.connect(uri, function (err, db) {
+        try {
             if (err) {
                 throw err;
             }
-            console.log('usuario insert ok!');
+            var dbo = db.db("buyskins_db");
+            dbo.collection("usuarios").drop(function (err, delOK) {
+                if (err) {
+                    throw err;
+                }
+                if (delOK) {
+                    console.log("Collection deleted");
+                }
+            });
+        } catch (exception) {
             db.close();
-        });
-    });
-}
-
-function selectUsuario() {
-    MongoClient.connect(url_db, function (err, db) {
-        if (err) {
-            throw err;
+            console.log(exception);
         }
-        var dbo = db.db("buyskins_db");
-        dbo.collection("usuarios").find().toArray(function (err, result) {
-            if (err)
-                throw err;
-            console.log(result);
-            db.close();
-        });
     });
 }
 
-//insertUsuario();
-//selectUsuario();
+function checkInsertUsuario(id, response) {
+    MongoClient.connect(uri, function (err, db) {
+        try {
+            var usuario = {id_steam: id};
+            var collection = db.db("buyskins_db").collection("usuarios");
+            collection.findOne(usuario, function (err, result) {
+                if (err) {
+                    throw err;
+                }
+                if (!result) {
+                    insertUsuario(id, response);
+                } else {
+                    console.log('Usuario já cadastrado : ' + JSON.stringify(result));
+                    response.redirect('/');
+                }
+            });
+        } catch (exception) {
+            console.log(exception);
+        } finally {
+            db.close();
+        }
+    });
+}
 
-//DELETE COLLECTION ( PERIGO ) 
-//MongoClient.connect(url_db, function(err, db) {
-//  if (err) throw err;
-//  var dbo = db.db("buyskins_db");
-//  dbo.collection("usuarios").drop(function(err, delOK) {
-//    if (err) throw err;
-//    if (delOK) console.log("Collection deleted");
-//    db.close();
-//  });
-//});
+//deleteUsuarios();
+//checkInsertUsuario();

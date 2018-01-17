@@ -120,7 +120,7 @@ and open the template in the editor.
     margin: 4px 0 0 9px;
 }
 .xp-earned {
-    width: 69px;
+    width: 0px;
     height: 7px;
     margin-left: -15px;
     background: linear-gradient( to right, #5c7a96, #88a0b6 );

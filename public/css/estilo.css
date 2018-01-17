@@ -48,6 +48,8 @@ header{
 
 .header-destaques > img{
     float: left;
+    width: 240px;
+    margin-left: calc(50% - 120px);
 }
 
 .lb-destaques{
@@ -252,6 +254,7 @@ footer{
 }
 
 .profile{
+    width: 200px;
     position: absolute;
     padding: 10px;
     top: 5px;
@@ -261,12 +264,9 @@ footer{
     box-shadow: 0 0 2px 2px rgba(0,0,0,0.5);
 }
 
-.profile:hover{
-
-}
 
 .profile > span{
-    width: 100px;
+    width: 100%;
     font-family: 'Exo 2', sans-serif;
     float: left;
     overflow: hidden;
@@ -275,14 +275,20 @@ footer{
     font-weight: bold;
     letter-spacing: 1px;
     color: #FFF;
-    margin-top: 10px;
+}
+.profile > span:nth-child(1){
+    color: green;
+}
+.profile > span:nth-child(2){
+    color: orange;
 }
 
 .usu-avatar{
-    float: right;
+    position: absolute;
+    top: 5px;
+    right: 10px;
     width: 50px;
     border-radius: 50%;
-    margin-top: -5px;
     cursor: pointer;
 }
 

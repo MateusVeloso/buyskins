@@ -83,7 +83,7 @@ $(function () {
 
     // launch slider
     slider_init();
-    
+
     current_playing++;
     slider_display(sliders, current_playing);
 

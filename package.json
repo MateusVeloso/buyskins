@@ -7,10 +7,11 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "mongodb": "^3.0.1",
     "passport": "^0.4.0",
     "passport-openid": "^0.4.0",
     "steam-inventory": "^1.0.5",
-    "steam-market-pricing": "^1.0.3",
+    "steam-market-pricing": "^2.0.0",
     "steam-web": "^0.6.0",
     "util": "^0.10.3"
   },
