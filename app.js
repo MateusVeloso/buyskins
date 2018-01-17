@@ -11,7 +11,6 @@ var express = require('express')
         , url = require('url')
         , path = require('path');
 
-
 var uri = "mongodb://vttcue:OubMzOoRIDjdf7fV@buyskins-shard-00-00-zvlo4.mongodb.net:27017/buyskins_db?ssl=true&authSource=admin";
 
 // Passport session setup.
@@ -70,6 +69,7 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/../../public'));
 
 app.get('/', function (req, res) {
+    console.log(req.headers.host);
     if (req.user) {
         MongoClient.connect(uri, function (err, db) {
             try {
@@ -93,7 +93,7 @@ app.get('/', function (req, res) {
                 db.close();
             }
         });
-    }else{
+    } else {
         res.render('index', {user: null});
     }
 });

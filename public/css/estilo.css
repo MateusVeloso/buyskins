@@ -48,8 +48,9 @@ header{
 
 .header-destaques > img{
     float: left;
-    width: 240px;
-    margin-left: calc(50% - 120px);
+    width: 370px;
+    height: 120px;
+    margin-left: calc(50% - 185px);
 }
 
 .lb-destaques{
